@@ -14,6 +14,7 @@ export const MovieCard = ({movie}: Props) => {
       style={{
         width: 300,
         height: 420,
+        borderRadius: 20,
       }}>
       <View style={styles.imageContainer}>
         <Image source={{uri}} style={styles.image} />
@@ -29,13 +30,13 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    borderRadius: 18,
+    borderRadius: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 6,
     },
-    shadowOpacity: 0.37,
+    shadowOpacity: 0.5,
     shadowRadius: 7.49,
     elevation: 10,
   },
