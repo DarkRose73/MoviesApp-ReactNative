@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  Dimensions,
-  FlatList,
-  ScrollView,
-} from 'react-native';
+import {View, ActivityIndicator, Dimensions, ScrollView} from 'react-native';
 import React from 'react';
 import {useMovies} from '../hooks/useMovies';
 import {MovieCard} from '../components/MovieCard';
@@ -17,7 +10,7 @@ import {HorizontalSlider} from '../components/HorizontalSlider';
 const {width: windowWidth} = Dimensions.get('window');
 
 export default function HomeScreen() {
-  const {moviesNowPlaying, isLoading} = useMovies();
+  const {nowPlaying, popular, topRated, upcoming, isLoading} = useMovies();
   const {top} = useSafeAreaInsets();
 
   if (isLoading) {
@@ -38,17 +31,21 @@ export default function HomeScreen() {
         {/* Principal Carousel */}
         <View style={{height: 440, paddingTop: 5}}>
           <Carousel
-            data={moviesNowPlaying}
+            data={nowPlaying}
             itemWidth={300}
             sliderWidth={windowWidth}
             inactiveSlideOpacity={0.9}
             renderItem={({item}) => <MovieCard movie={item}></MovieCard>}
+            autoplay={true}
+            autoplayInterval={7000}
+            loop={true}
           />
         </View>
 
         {/* Trending movies */}
-
-        <HorizontalSlider title="Trending movies" movies={moviesNowPlaying} />
+        <HorizontalSlider title="Popular" movies={popular} />
+        <HorizontalSlider title="Top rated" movies={topRated} />
+        <HorizontalSlider title="Upcoming" movies={upcoming} />
       </View>
     </ScrollView>
   );
