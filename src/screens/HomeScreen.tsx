@@ -1,4 +1,11 @@
-import {View, Text, ActivityIndicator, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import {useMovies} from '../hooks/useMovies';
 import {MovieCard} from '../components/MovieCard';
@@ -25,16 +32,34 @@ export default function HomeScreen() {
     );
   }
   return (
-    <View style={{marginTop: top + 20}}>
-      {/* <MovieCard movie={moviesNowPlaying[0]}></MovieCard> */}
-      <View style={{height: 440}}>
-        <Carousel
-          data={moviesNowPlaying}
-          itemWidth={300}
-          sliderWidth={windowWidth}
-          renderItem={({item}) => <MovieCard movie={item}></MovieCard>}
-        />
+    <ScrollView>
+      <View style={{marginTop: top + 20}}>
+        {/* Principal Carousel */}
+        <View style={{height: 440}}>
+          <Carousel
+            data={moviesNowPlaying}
+            itemWidth={300}
+            sliderWidth={windowWidth}
+            renderItem={({item}) => <MovieCard movie={item}></MovieCard>}
+          />
+        </View>
+
+        {/* Trending movies */}
+        <View style={{backgroundColor: 'red', height: 260}}>
+          <Text style={{fontSize: 30, fontWeight: 'bold'}}>
+            Trending movies
+          </Text>
+          <FlatList
+            data={moviesNowPlaying}
+            renderItem={({item}) => (
+              <MovieCard movie={item} width={140} height={200}></MovieCard>
+            )}
+            keyExtractor={item => item.id.toString()}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
