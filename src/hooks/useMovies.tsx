@@ -16,7 +16,7 @@ export const useMovies = () => {
 
   useEffect(() => {
     // now playing
-    getMovies;
+    getMovies();
   }, []);
 
   return {
