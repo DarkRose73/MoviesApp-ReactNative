@@ -12,6 +12,7 @@ import {MovieCard} from '../components/MovieCard';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import Carousel from 'react-native-snap-carousel';
+import {HorizontalSlider} from '../components/HorizontalSlider';
 
 const {width: windowWidth} = Dimensions.get('window');
 
@@ -35,30 +36,19 @@ export default function HomeScreen() {
     <ScrollView>
       <View style={{marginTop: top + 20}}>
         {/* Principal Carousel */}
-        <View style={{height: 440}}>
+        <View style={{height: 440, paddingTop: 5}}>
           <Carousel
             data={moviesNowPlaying}
             itemWidth={300}
             sliderWidth={windowWidth}
+            inactiveSlideOpacity={0.9}
             renderItem={({item}) => <MovieCard movie={item}></MovieCard>}
           />
         </View>
 
         {/* Trending movies */}
-        <View style={{backgroundColor: 'red', height: 260}}>
-          <Text style={{fontSize: 30, fontWeight: 'bold'}}>
-            Trending movies
-          </Text>
-          <FlatList
-            data={moviesNowPlaying}
-            renderItem={({item}) => (
-              <MovieCard movie={item} width={140} height={200}></MovieCard>
-            )}
-            keyExtractor={item => item.id.toString()}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          />
-        </View>
+
+        <HorizontalSlider title="Trending movies" movies={moviesNowPlaying} />
       </View>
     </ScrollView>
   );
