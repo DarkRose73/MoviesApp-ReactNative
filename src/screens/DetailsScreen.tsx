@@ -11,6 +11,8 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../navigation/Navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import useMovieDetails from '../hooks/useMovieDetails';
+import {ActivityIndicator} from 'react-native';
+import {MovieDetails} from '../components/MovieDetails';
 
 interface Props extends StackScreenProps<RootStackParams, 'Details'> {}
 
@@ -29,14 +31,17 @@ export default function DetailsScreen({route}: Props) {
           <Image source={{uri}} style={styles.posterImage} />
         </View>
       </View>
+
       <View style={styles.marginContainer}>
         <Text style={styles.subTitle}>{movie.original_title}</Text>
         <Text style={styles.title}>{movie.title}</Text>
       </View>
 
-      <View style={styles.marginContainer}>
-        <Icon name="star-outline" size={20} color={'red'}></Icon>
-      </View>
+      {isLoading ? (
+        <ActivityIndicator size={35} color={'grey'} style={{marginTop: 10}} />
+      ) : (
+        <MovieDetails cast={cast} movieFull={movieFull!}></MovieDetails>
+      )}
     </ScrollView>
   );
 }
@@ -76,5 +81,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: 'black',
   },
 });
