@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../navigation/Navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Props extends StackScreenProps<RootStackParams, 'Details'> {}
 
@@ -22,11 +23,17 @@ export default function DetailsScreen({route}: Props) {
   return (
     <ScrollView>
       <View style={styles.imageContainer}>
-        <Image source={{uri}} style={styles.posterImage} />
+        <View style={styles.imageBorder}>
+          <Image source={{uri}} style={styles.posterImage} />
+        </View>
       </View>
       <View style={styles.marginContainer}>
         <Text style={styles.subTitle}>{movie.original_title}</Text>
         <Text style={styles.title}>{movie.title}</Text>
+      </View>
+
+      <View style={styles.marginContainer}>
+        <Icon name="star-outline" size={20} color={'red'}></Icon>
       </View>
     </ScrollView>
   );
@@ -36,9 +43,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: '100%',
     height: screenHeight * 0.7,
-
-    overflow: 'hidden',
-
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -47,7 +51,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 7.49,
     elevation: 10,
-
+    borderBottomEndRadius: 25,
+    borderBottomStartRadius: 25,
+  },
+  imageBorder: {
+    flex: 1,
+    overflow: 'hidden',
     borderBottomEndRadius: 25,
     borderBottomStartRadius: 25,
   },
