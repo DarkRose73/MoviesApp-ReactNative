@@ -23,7 +23,6 @@ export default function DetailsScreen({route}: Props) {
   const uri = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
   const {isLoading, cast, movieFull} = useMovieDetails(movie.id);
 
-  console.log(movie.title);
   return (
     <ScrollView>
       <View style={styles.imageContainer}>
