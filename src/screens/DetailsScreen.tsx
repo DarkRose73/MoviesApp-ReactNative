@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -18,7 +19,7 @@ interface Props extends StackScreenProps<RootStackParams, 'Details'> {}
 
 const screenHeight = Dimensions.get('screen').height;
 
-export default function DetailsScreen({route}: Props) {
+export default function DetailsScreen({route, navigation}: Props) {
   const movie = route.params;
   const uri = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
   const {isLoading, cast, movieFull} = useMovieDetails(movie.id);
@@ -41,6 +42,15 @@ export default function DetailsScreen({route}: Props) {
       ) : (
         <MovieDetails cast={cast} movieFull={movieFull!}></MovieDetails>
       )}
+
+      {/* Close button */}
+      <TouchableOpacity
+        style={styles.backBottom}
+        onPress={() => {
+          navigation.pop();
+        }}>
+        <Icon color={'white'} name={'arrow-back-outline'} size={60} />
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -81,5 +91,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: 'black',
+  },
+  backBottom: {
+    position: 'absolute',
+    elevation: 9,
+    zIndex: 999,
+    top: 20,
+    left: 5,
   },
 });
